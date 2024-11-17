@@ -22,16 +22,28 @@
 #   - Terminates program with exit code 36 if array length < 1
 # =================================================================
 argmax:
-    li t6, 1
-    blt a1, t6, handle_error
-
-    lw t0, 0(a0)
-
-    li t1, 0
-    li t2, 1
+    li t6, 1 
+    blt a1, t6, handle_error # break if there's no element
+    lw t0, 0(a0) # max
+    li t1, 0 # i
+    li t2, 0 # address of i
+    li t4, 0 # position of the max
 loop_start:
     # TODO: Add your own implementation
+    bge     t1, a1, end
+    slli    t2, t1, 2
+    add     t2, a0, t2
+    addi    t1, t1, 1
+    lw      t2, 0(t2)
+    bge     t0, t2, loop_start #if max >= a0[i] -> continue
+    mv      t0, t2 # set Max()
+    addi    t4, t1, -1 # set the index of max
+    j   loop_start
 
 handle_error:
     li a0, 36
     j exit
+
+end:
+    mv a0, t4
+    jr ra

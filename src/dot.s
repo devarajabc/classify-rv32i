@@ -31,12 +31,48 @@ dot:
     blt a3, t0, error_terminate   
     blt a4, t0, error_terminate  
 
-    li t0, 0            
-    li t1, 0         
+    li t0, 0    # finanl        
+    li t1, 0    # i 
+    li t3, 0
+    li t4, 0 
+    li t5, 0  #Initialize product
+    
 
 loop_start:
     bge t1, a2, loop_end
-    # TODO: Add your own implementation
+    # get the offset
+    
+    slli t2, t1, 2  
+index_of_arr0:
+    add t5, t5, t2
+    addi t3, t3, 1
+    blt t3, a3, index_of_arr0
+    mv t2, t5 # store the offset 
+    li t5, 0 # reset the Initialize product
+    
+    slli t3, t1, 2 # set t3
+index_of_arr1:
+    add t5, t5, t3
+    addi t4, t4, 1
+    blt t4, a4, index_of_arr1
+    mv t3, t5 # store the offset 
+    li t5, 0 # reset the Initialize product
+    li t4, 0 # reset Loop index
+    
+    
+    # load the value
+    add t2, t2, a0
+    add t3, t3, a1
+    lw t2, 0(t2) #arr0[i * stride0]
+    lw t3, 0(t3) #arr1[i * stride1]
+
+mul_loop:
+    add t0, t0, t2
+    addi t4, t4, 1
+    blt t4, t3, mul_loop
+    addi t1, t1, 1
+    li t4, 0 # reset Loop index
+    j loop_start
 
 loop_end:
     mv a0, t0

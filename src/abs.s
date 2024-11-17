@@ -22,7 +22,10 @@ abs:
     bge t0, zero, done
 
     # TODO: Add your own implementation
-
+    srai    t1, t0, 31 # mask = x >> 31; 1111... (-1)for neg, 000000.... (0)for pos
+    xor     t0, t0, t1 # x = x XOR mask; like "not" => ~x
+    sub     t0, t0, t1 # x = x - mask(-1 or 0); (x = ~x + 1) => 
+    sw      t0, 0(a0) #store 
 done:
     # Epilogue
     jr ra

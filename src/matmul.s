@@ -56,16 +56,17 @@ matmul:
     li s0, 0 # outer loop counter
     li s1, 0 # inner loop counter
     mv s2, a6 # incrementing result matrix pointer
-    mv s3, a0 # incrementing matrix A pointer, increments durring outer loop
-    mv s4, a3 # incrementing matrix B pointer, increments during inner loop 
+    mv s3, a0 # incrementing matrix A pointer, (s3)increments durring outer loop
+    mv s4, a3 # incrementing matrix B pointer, (s4)increments during inner loop 
     
 outer_loop_start:
     #s0 is going to be the loop counter for the rows in A
-    li s1, 0
-    mv s4, a3
+    li s1, 0 # inner loop counter reset
+    mv s4, a3 # start from beginning
     blt s0, a1, inner_loop_start
 
-    j outer_loop_end
+    # j outer_loop_end
+    j exit
     
 inner_loop_start:
 # HELPER FUNCTION: Dot product of 2 int arrays
@@ -83,7 +84,8 @@ inner_loop_start:
     sw a0, 0(sp)
     sw a1, 4(sp)
     sw a2, 8(sp)
-    sw a3, 12(sp)
+
+    sw a3, 12(sp) # set
     sw a4, 16(sp)
     sw a5, 20(sp)
     
@@ -105,8 +107,8 @@ inner_loop_start:
     lw a5, 20(sp)
     addi sp, sp, 24
     
-    sw t0, 0(s2)
-    addi s2, s2, 4 # Incrememtning pointer for result matrix
+    sw t0, 0(s2) # saving result of the dot product to into stack s2 (result matrix pointer)
+    addi s2, s2, 4 # Incrememtning pointer for result matrix 
     
     li t1, 4
     add s4, s4, t1 # incrememtning the column on Matrix B
@@ -116,7 +118,10 @@ inner_loop_start:
     
 inner_loop_end:
     # TODO: Add your own implementation
-
+    addi s0, s0, 1
+    slli t1, a5, 2
+    add s3, s3, t1 # incrememtning the row on Matrix A
+    j outer_loop_start
 error:
     li a0, 38
     j exit

@@ -30,7 +30,7 @@ relu:
 
 loop_start:
     # TODO: Add your own implementation
-    bge     t1, a1, exit # if i >= a1 break
+    bge     t1, a1, end # if i >= a1 break
     slli    t2, t1, 2 # Multiply i by 4
     add     t2, a0, t2 # update t2 (address of a0[i])
     addi    t1, t1, 1 # i++
@@ -42,4 +42,5 @@ loop_start:
 error:
     li a0, 36          
     j exit          
-exit:
+end:
+    jr ra

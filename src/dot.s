@@ -45,9 +45,8 @@ loop_start:
 mul: # sum(arr0[i] * arr1[i])
     add t0, t0, t2
     addi t4, t4, 1
-    blt t4, a4, index_of_arr1
-    slli t3, t5, 2
-      
+    blt t4, t3, mul
+    
     # update address
     slli t2, a3, 2
     slli t3, a4, 2

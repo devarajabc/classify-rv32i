@@ -1,6 +1,6 @@
 # Assignment 2: Classify
 
-The most frustrating issues consist of dots in which the multiplication needs to be written in long multiplication form or when it can't pass test_chain_1 and test_classify_3_print. I still don't know why:
+The most frustrating issues consist of dots in which the multiplication needs to be written in long multiplication form ; otherwise, they can't pass `test_chain_1` and `test_classify_3_print` I still don't know why,and this needs further clarification.
 ```
 FAIL: test_chain_1 (__main__.TestChain.test_chain_1)
 ----------------------------------------------------------------------
@@ -13,7 +13,7 @@ AssertionError: Bytes of ../tests/classify-3/output.bin and ../tests/classify-3/
 ```
 
 
-Result:
+Result (use long multiplication in dot.s):
 ```c
 (base) devaraja@qiujikuandeMacBook-Air-2 classify-rv32i % bash test.sh all
 test_abs_minus_one (__main__.TestAbs.test_abs_minus_one) ... ok

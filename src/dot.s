@@ -33,41 +33,28 @@ dot:
 
     li t0, 0    # finanl        
     li t1, 0    # i 
+    li t2, 0    #stride0 / value of arr0[i]
+    li t3, 0    #stride1 / value of arr1[i]
 loop_start:
     bge t1, a2, loop_end
-    # get the offset
-
-    li t3, 0    # inner  index
-    li t5, 0  #Initialize product   
-index_of_arr0:
-    add t5, t5, t1
-    addi t3, t3, 1
-    blt t3, a3, index_of_arr0
-    slli t2, t5, 2 # address of arr0
+    # for every `i`, get i * stride0 and i * stride1 than do mul
+    lw t2, 0(a0) #arr0[i]
+    lw t3, 0(a1) #arr1[i]
     
-    li t5, 0 # reset the Initialize product
-    li t4, 0  #Initialize product
-index_of_arr1:
-    add t5, t5, t1
+    li t4, 0    # inner counter
+mul: # sum(arr0[i] * arr1[i])
+    add t0, t0, t2
     addi t4, t4, 1
     blt t4, a4, index_of_arr1
     slli t3, t5, 2
       
-    # load the value
-    add t2, t2, a0
-    add t3, t3, a1
-    lw t2, 0(t2) #arr0[i * stride0]
-    lw t3, 0(t3) #arr1[i * stride1]
-
-    li t4, 0  #Initialize product
-mul_loop:
-    add t0, t0, t2
-    addi t4, t4, 1
-    blt t4, t3, mul_loop
+    # update address
+    slli t2, a3, 2
+    slli t3, a4, 2
+    add a0, a0, t2
+    add a1, a1, t3
     addi t1, t1, 1
-    li t4, 0 # reset Loop index
     j loop_start
-
 loop_end:
     mv a0, t0
     jr ra

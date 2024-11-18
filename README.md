@@ -1,6 +1,6 @@
 # Assignment 2: Classify
 
-The most Troubleshooting Steps consist in dot.s in which the multipation need to write in the long multiplication form or can't pass `test_chain_1` and `test_classify_3_print` :
+The most frustrating issues consist of dots in which the multiplication needs to be written in long multiplication form or when it can't pass test_chain_1 and test_classify_3_print. I still don't know why:
 ```
 FAIL: test_chain_1 (__main__.TestChain.test_chain_1)
 ----------------------------------------------------------------------

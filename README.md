@@ -14,7 +14,7 @@ AssertionError: Bytes of ../tests/classify-3/output.bin and ../tests/classify-3/
 
 
 Result (use long multiplication in dot.s):
-```c
+```
 (base) devaraja@qiujikuandeMacBook-Air-2 classify-rv32i % bash test.sh all
 test_abs_minus_one (__main__.TestAbs.test_abs_minus_one) ... ok
 test_abs_one (__main__.TestAbs.test_abs_one) ... ok

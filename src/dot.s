@@ -33,39 +33,33 @@ dot:
 
     li t0, 0    # finanl        
     li t1, 0    # i 
-    li t3, 0
-    li t4, 0 
-    li t5, 0  #Initialize product
-    
-
 loop_start:
     bge t1, a2, loop_end
     # get the offset
-    
-    slli t2, t1, 2  
+
+    li t3, 0    # inner  index
+    li t5, 0  #Initialize product   
 index_of_arr0:
-    add t5, t5, t2
+    add t5, t5, t1
     addi t3, t3, 1
     blt t3, a3, index_of_arr0
-    mv t2, t5 # store the offset 
-    li t5, 0 # reset the Initialize product
+    slli t2, t5, 2 # address of arr0
     
-    slli t3, t1, 2 # set t3
+    li t5, 0 # reset the Initialize product
+    li t4, 0  #Initialize product
 index_of_arr1:
-    add t5, t5, t3
+    add t5, t5, t1
     addi t4, t4, 1
     blt t4, a4, index_of_arr1
-    mv t3, t5 # store the offset 
-    li t5, 0 # reset the Initialize product
-    li t4, 0 # reset Loop index
-    
-    
+    slli t3, t5, 2
+      
     # load the value
     add t2, t2, a0
     add t3, t3, a1
     lw t2, 0(t2) #arr0[i * stride0]
     lw t3, 0(t3) #arr1[i * stride1]
 
+    li t4, 0  #Initialize product
 mul_loop:
     add t0, t0, t2
     addi t4, t4, 1

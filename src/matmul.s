@@ -65,8 +65,7 @@ outer_loop_start:
     mv s4, a3 # start from beginning
     blt s0, a1, inner_loop_start
 
-    # j outer_loop_end
-    j exit
+    j outer_loop_end
     
 inner_loop_start:
 # HELPER FUNCTION: Dot product of 2 int arrays
